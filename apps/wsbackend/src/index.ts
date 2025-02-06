@@ -3,8 +3,8 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 import { JWT_SECRET } from '@repo/backend-common/config';
 import { prisma } from "@repo/db/client";
 
-const wss = new WebSocketServer({ port: 8080 });
-
+const port = 8081;
+const wss = new WebSocketServer({ port }, ()=>{console.log(`ws-backend is runing on ${port}`)});
 interface User {
   ws: WebSocket,
   rooms: string[],
@@ -79,7 +79,7 @@ wss.on('connection', function connection(ws, request) {
     if (parsedData.type === "chat") {
       const roomId = parsedData.roomId;
       const message = parsedData.message;
-
+      //@todo add a queue here 
       await prisma.chat.create({
         data: {
           roomId: Number(roomId),

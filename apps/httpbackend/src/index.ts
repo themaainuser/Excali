@@ -7,7 +7,7 @@ import cors from "cors";
 import { middleware } from "./middleware";
 
 const app = express();
-const port = 3001;
+const port = 3004;
 app.use(express.json());
 app.use(cors())
 
@@ -142,5 +142,5 @@ app.get("/room/:slug", async (req, res) => {
 })
 
 app.listen(port, ()=>{
-    console.log(`https is runing on ${port}`)
+    console.log(`http-backend is runing on ${port}`)
 });
